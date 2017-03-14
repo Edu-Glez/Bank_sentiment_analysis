@@ -16,9 +16,26 @@ auth.set_access_token(access_token, access_secret)
 api = tweepy.API(auth)
 #places = api.geo_search(query="MEXICO", granularity="country")
 #place_id = places[0].id
-
+dates=[{}]
+texts=[{}]
+user_id=[{}]
 #print(place_id) 
 for tweet in tweepy.Cursor(api.search, q="#Bancomer", lang="es", since="2017-03-07", until="2017-03-09").items():
-	if tweet.in_reply_to_user_id is not None:
-		with open('python.json', 'a') as f:
-			f.write(json.dumps(tweet.in_reply_to_user_id))
+	dates.append({'dates':tweet.created_at})
+	texts.append({'texts':tweet.text})
+	user_id.append({'user_id':tweet.user.id})
+dates_df=pd.DataFrame(dates)
+texts_df=pd.DataFrame(texts)
+user_id_df=pd.DataFrame(user_id)
+
+table=[dates_df, texts_df, user_id_df]
+#print(table)
+final_result=pd.concat(table, axis=1)
+final_result=pd.DataFrame.dropna(final_result)
+
+print(final_result)
+
+final_json=final_result.to_json("test.JSON")
+#	if tweet.in_reply_to_user_id is not None:
+#		with open('python.json', 'a') as f:
+#			f.write(json.dumps(tweet.in_reply_to_user_id))
