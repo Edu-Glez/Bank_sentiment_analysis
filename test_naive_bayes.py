@@ -1,5 +1,10 @@
-a=pd.read_table('/home/graduate/TwitterSentimentDataset/tweets_pos_clean.txt')
-b=pd.read_table('/home/graduate/TwitterSentimentDataset/tweets_neg_clean.txt')
+import pickle
+import pandas as pd
+import numpy as np
+import nltk
+
+a=pd.read_table('tweets_pos_clean.txt')
+b=pd.read_table('tweets_neg_clean.txt')
 
 
 aux1=[]
@@ -19,6 +24,9 @@ for element in b['text']:
 			auxiliar2.append(w)
 	aux2.append((auxiliar2,'negative'))
 	auxiliar2=[]
+
+aux1=aux1[:10000]
+aux2=aux2[:20000]
 
 pos_df=pd.DataFrame(aux1)
 neg_df=pd.DataFrame(aux2)
@@ -51,5 +59,12 @@ def extract_features(document):
 
 word_features = get_word_features(get_words_in_tweets(table_aux1))
 
-training_set = nltk.classify.apply_features(extract_features, aux1)
+training_set = nltk.classify.apply_features(extract_features, table_aux1)
 classifier = nltk.NaiveBayesClassifier.train(training_set)
+
+word_features = list(word_features)
+
+with open('objs.pickle','wb') as f:
+	pickle.dump([classifier, word_features],f)
+
+
