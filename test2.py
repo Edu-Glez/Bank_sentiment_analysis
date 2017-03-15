@@ -4,6 +4,12 @@ from tweepy import Stream
 from tweepy.streaming import StreamListener
 from tweepy import OAuthHandler
 import pandas as pd
+import pickle
+import sys
+
+arg=sys.argv
+print(sys.argv)
+
 
 consumer_key = 'w87sF4cjjFylzzyCd4mmTVfW3'
 consumer_secret = 'QSomS57CVwOZWHoK9Bl2yt2PdBImgxftulZeGSraq4n9vJzGFh'
@@ -23,10 +29,12 @@ datos_tweets.setdefault('texts',[])
 datos_tweets.setdefault('user_id',[])
 
 #print(place_id) 
-for tweet in tweepy.Cursor(api.search, q="#Bancomer", lang="es", since="2017-03-09", until="2017-03-11").items():
-	datos_tweets['date'].append(tweet.created_at)
+for tweet in tweepy.Cursor(api.search, q=arg[1], lang="es", since="2017-03-09", until="2017-03-11").items():
+	datos_tweets['date'].append(tweet.created_at.isoformat())
 	datos_tweets['texts'].append(tweet.text)
 	datos_tweets['user_id'].append(tweet.user.id)
 
+with open(arg[1]+'.json', 'w') as fp:
+    json.dump(datos_tweets, fp)
 
-#print(table)
+print(pd.DataFrame(datos_tweets))
