@@ -16,26 +16,17 @@ auth.set_access_token(access_token, access_secret)
 api = tweepy.API(auth)
 #places = api.geo_search(query="MEXICO", granularity="country")
 #place_id = places[0].id
-dates_bancomer=[{}]
-texts_bancomer=[{}]
-user_id_bancomer=[{}]
+
+datos_tweets={}
+datos_tweets.setdefault('date',[])
+datos_tweets.setdefault('texts',[])
+datos_tweets.setdefault('user_id',[])
+
 #print(place_id) 
-for tweet in tweepy.Cursor(api.search, q="#Bancomer", lang="es", since="2017-03-07", until="2017-03-09").items():
-	dates_bancomer.append({'dates':tweet.created_at})
-	texts_bancomer.append({'texts':tweet.text})
-	user_id_bancomer.append({'user_id':tweet.user.id})
-dates_bancomer_df=pd.DataFrame(dates_bancomer)
-texts_bancomer_df=pd.DataFrame(texts_bancomer)
-user_id_bancomer_df=pd.DataFrame(user_id_bancomer)
+for tweet in tweepy.Cursor(api.search, q="#Bancomer", lang="es", since="2017-03-09", until="2017-03-11").items():
+	datos_tweets['date'].append(tweet.created_at)
+	datos_tweets['texts'].append(tweet.text)
+	datos_tweets['user_id'].append(tweet.user.id)
 
-table_bancomer=[dates_bancomer_df, texts_bancomer_df, user_id_bancomer_df]
+
 #print(table)
-final_result_bancomer=pd.concat(table_bancomer, axis=1)
-final_result_bancomer=pd.DataFrame.dropna(final_result_bancomer)
-
-print(final_result)
-
-final_json=final_result.to_json("test.JSON")
-#	if tweet.in_reply_to_user_id is not None:
-#		with open('python.json', 'a') as f:
-#			f.write(json.dumps(tweet.in_reply_to_user_id))
