@@ -5,10 +5,10 @@ import nltk
 import json
 import sys
 
-a=sys.argv
-print(a[0])
-
-with open(a[1], 'r') as fp:
+arg=sys.argv
+name1=arg[1]+'_analisis.json'
+name2=arg[1]+'_resultados.json'
+with open(arg[1]+'.json', 'r') as fp:
 	data = json.load(fp)
 
 with open('objs.pickle', "rb") as f:
@@ -64,13 +64,13 @@ sentiments['positivos'].append(p)
 sentiments['negativos'].append(n)
 sentiments['neutros'].append(ne)
 
-print(pd.DataFrame(values))
+print(values)
 
-with open(arg[1]+'analisis.json', 'w') as fp:
-    json.dump(values, fp)
+with open(name1, 'w') as fp1:
+    json.dump(values, fp1)
 
-with open(arg[1]+'resultados.json', 'w') as fp:
-    json.dump(sentiments, fp)
+with open(name2, 'w') as fp2:
+    json.dump(sentiments, fp2)
 
 print(p)
 print(n)
