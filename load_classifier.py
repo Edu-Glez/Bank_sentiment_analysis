@@ -21,7 +21,13 @@ def extract_features(document):
                 features['contains(%s)' % word] = (word in document_words)
         return features
 
-a=pd.DataFrame(data['texts'])
+load=[]
+
+for i in range(1,len(data['texts'])):
+	load.append(data['texts'][str(i)])
+	#print(data['texts'][str(i)])
+
+a=pd.DataFrame(load)
 a.columns=['text']
 aux=[]
 p=0
