@@ -50,7 +50,7 @@ for tweet in tweepy.Cursor(api.search, q=req, lang="es", since=arg[2], until=arg
 df_datos_tweets=pd.DataFrame(datos_tweets)
 
 #Saving the data and assigning a name realted to the given arguments
-with open(arg[1]+'_'+arg[2]+'.json', 'w') as fp:
+with open('/home/graduate/Bank_sentiment_analysis/'+arg[1]+'_'+arg[2]+'.json', 'w') as fp:
     json.dump(datos_tweets, fp)
 
 print(df_datos_tweets.to_json)

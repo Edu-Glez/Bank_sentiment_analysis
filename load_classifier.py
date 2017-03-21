@@ -14,7 +14,7 @@ name1=arg[1]+'_analisis.json'
 name2=arg[1]+'_resultados.json'
 
 #Loading the classifier and the word features
-with open('objs.pickle', "rb") as f:
+with open('/home/graduate/Bank_sentiment_analysis/objs.pickle', "rb") as f:
         classifier, word_features=pickle.load(f)
 
 
@@ -94,11 +94,11 @@ else:
 	print(values)
 
 	#Save the file of the tweets with their evaluation
-	with open(name1, 'w') as fp1:
+	with open('/home/graduate/Bank_sentiment_analysis/'+name1, 'w') as fp1:
 	    json.dump(values, fp1)
 
 	#Save the file with the final results
-	with open(name2, 'w') as fp2:
+	with open('/home/graduate/Bank_sentiment_analysis/'+name2, 'w') as fp2:
 	    json.dump(sentiments, fp2)
 
 	print(p)
