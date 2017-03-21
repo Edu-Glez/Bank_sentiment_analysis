@@ -6,7 +6,7 @@
 
 * El script test-naives-bayes.py es para crear un clasificador a partir de un dataset con una columna con textos y otra con su etiqueta. En la misma carpeta en el archivo pickle ya esta creado un clasificador y un diccionario necesario para el script load_classifier.py.
 
-* Para el escript extract.py son necesarios treas argumentos:
+* Para el escript extract.py son necesarios treas argumentos
 ..* El nombre del banco para búsqueda ej: Bancomer
 ..* Fecha de inicio de búsqueda ej: 2017-03-18
 ..* Fecha de termino de búsqueda ej: 2017-03-19
